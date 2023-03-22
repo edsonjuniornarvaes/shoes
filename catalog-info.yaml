@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: igniteshoesapp
+  annotations:
+    github.com/project-slug: edsonjuniornarvaes/igniteshoesapp
+spec:
+  type: other
+  lifecycle: unknown
+  owner: edsonjuniornarvaes
