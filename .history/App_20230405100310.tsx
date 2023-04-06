@@ -19,7 +19,6 @@ const oneSignalAppId =
   Platform.OS === "ios" ? "" : "53895c6d-9668-436c-88e7-4d63ca794f54";
 
 OneSignal.setAppId(oneSignalAppId);
-OneSignal.setEmail("edsonjunior.narvaes@gmail.com");
 
 OneSignal.promptForPushNotificationsWithUserResponse((response) => {
   console.log(response);
