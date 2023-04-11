@@ -15,6 +15,7 @@ import { CartContextProvider } from "./src/contexts/CartContext";
 
 import OneSignal, { NotificationReceivedEvent } from "react-native-onesignal";
 import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
+import { useEffect } from "react";
 
 const oneSignalAppId =
   Platform.OS === "ios" ? "" : "53895c6d-9668-436c-88e7-4d63ca794f54";
