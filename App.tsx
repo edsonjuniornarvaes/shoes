@@ -13,7 +13,7 @@ import { Loading } from "./src/components/Loading";
 
 import { CartContextProvider } from "./src/contexts/CartContext";
 
-import OneSignal from "react-native-onesignal";
+import OneSignal, { NotificationReceivedEvent } from "react-native-onesignal";
 import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
 
 const oneSignalAppId =
@@ -22,14 +22,22 @@ const oneSignalAppId =
 OneSignal.setAppId(oneSignalAppId);
 OneSignal.setEmail("edsonjunior.narvaes@gmail.com");
 
-OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-  console.log(response);
-});
+OneSignal.promptForPushNotificationsWithUserResponse();
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
   tagUserInfoCreate();
+
+  useEffect(() => {
+    const unsubscribe = OneSignal.setNotificationWillShowInForegroundHandler(
+      (notificationRecivedEvent: NotificationReceivedEvent) => {
+        console.log(notificationRecivedEvent);
+      }
+    );
+
+    return () => unsubscribe;
+  }, []);
 
   return (
     <NativeBaseProvider theme={THEME}>
