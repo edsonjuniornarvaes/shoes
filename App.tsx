@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StatusBar, Platform } from "react-native";
 import OneSignal from "react-native-onesignal";
 import { NativeBaseProvider } from "native-base";
@@ -27,6 +28,14 @@ export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
   tagUserInfoCreate();
+
+  useEffect(() => {
+    const unsubscribe = OneSignal.setNotificationOpenedHandler(() => {
+      console.log("Notificação aberta");
+    });
+
+    return () => unsubscribe;
+  }, []);
 
   return (
     <NativeBaseProvider theme={THEME}>
