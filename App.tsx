@@ -13,9 +13,13 @@ import { Loading } from "./src/components/Loading";
 
 import { CartContextProvider } from "./src/contexts/CartContext";
 
-import OneSignal, { NotificationReceivedEvent } from "react-native-onesignal";
+import OneSignal, {
+  NotificationReceivedEvent,
+  OSNotification,
+} from "react-native-onesignal";
 import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Notification } from "./src/components/Notification";
 
 const oneSignalAppId =
   Platform.OS === "ios" ? "" : "53895c6d-9668-436c-88e7-4d63ca794f54";
@@ -27,13 +31,16 @@ OneSignal.promptForPushNotificationsWithUserResponse();
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  const [notification, setNotification] = useState<OSNotification>();
 
   tagUserInfoCreate();
 
   useEffect(() => {
     const unsubscribe = OneSignal.setNotificationWillShowInForegroundHandler(
       (notificationRecivedEvent: NotificationReceivedEvent) => {
-        console.log(notificationRecivedEvent);
+        const response = notificationRecivedEvent.getNotification();
+
+        setNotification(response);
       }
     );
 
@@ -50,6 +57,12 @@ export default function App() {
       <CartContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
       </CartContextProvider>
+      {notification?.title && (
+        <Notification
+          title={notification.title}
+          onClose={() => setNotification(undefined)}
+        />
+      )}
     </NativeBaseProvider>
   );
 }
