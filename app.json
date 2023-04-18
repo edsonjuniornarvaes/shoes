@@ -15,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rocketseat.igniteshoes"
@@ -37,28 +39,6 @@
           "mode": "development"
         }
       ]
-    ],
-    "extra": {
-      "eas": {
-        "build": {
-          "experimental": {
-            "ios": {
-              "appExtensions": [
-                {
-                  "targetName": "OneSignalNotificationServiceExtension",
-                  "bundleIdentifier": "com.rocketseat.igniteshoes.OneSignalNotificationServiceExtension",
-                  "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.com.rocketseat.igniteshoes.onesignal"
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "projectId": "e2c8199f-fd94-4a1f-a4e8-b1136ef7e648"
-      }
-    }
+    ]
   }
 }
